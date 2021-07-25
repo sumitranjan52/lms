@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(335deg, #dee2f7, #fff0);
+  background-attachment: fixed;
+}
+
+.lh-56 {
+  line-height: 56px;
+}
+
+.lh-40 {
+  line-height: 40px;
+}
+
+.align-r {
+  text-align: right;
+  overflow: hidden;
+}
+
+.align-l {
+  text-align: left;
+}
+
+.align-c {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: calc(100vh - 64px);
+}
+
+.sidebar-col {
+  flex: 0 0 20%;
+  background-color: #3f51b5;
+}
+
+.sidebar-col .mat-list-item {
+  color: #fff !important;
+}

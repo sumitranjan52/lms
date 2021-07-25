@@ -1,0 +1,68 @@
+.app-board {
+  padding: 25px;
+  overflow-x: hidden;
+}
+.filter-popup {
+  justify-content: flex-end !important;
+  left: -45px;
+}
+/* sticky button */
+
+#feedback1 {
+  height: 0px;
+  width: 85px;
+  position: fixed;
+  right: 0;
+  top: 30%;
+  z-index: 1000;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+#feedback1 a {
+  display: block;
+  /* background:url(pc.png) no-repeat; */
+  height: 52px;
+  width: 155px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* #feedback1 a:hover {
+  background:url(pc-over.png) no-repeat;
+} */
+
+#feedback {
+  height: 0px;
+  width: 85px;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  z-index: 1000;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+#feedback a {
+  display: block;
+  background: #000;
+  height: 52px;
+  padding-top: 10px;
+  width: 155px;
+  text-align: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+}
+#feedback a:hover {
+  background: #00495d;
+}

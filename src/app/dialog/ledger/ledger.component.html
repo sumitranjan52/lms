@@ -1,0 +1,278 @@
+<h1 mat-dialog-title>Ledger</h1>
+  <div mat-dialog-content>
+    <div id = "printLedger" class="container-fluid">
+      <div class="row">
+        <div class="col">
+          Student Name :
+          {{ studentdetail.name }}
+        </div>
+        <div class="col">
+          Center :
+          {{ studentdetail.coachingCenter }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Father's Name:
+          {{ studentdetail.fatherName }}
+        </div>
+        <div class="col">
+          Branch:
+          {{ studentdetail.branchName }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Class:
+          {{ studentdetail.class }}
+        </div>
+        <div class="col">
+          Contact:
+          {{ studentdetail.contactNumber }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h6>
+            Course Fee:
+            {{ studentdetail.fee }}
+          </h6>
+        </div>
+        <div class="col">
+          <h6>
+            Due Amount:
+            {{ dueAmount }}
+          </h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h6>
+            Course Fee Payments
+          </h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort class="full-width">
+              <!-- selection Column -->
+              <!-- <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox></mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-checkbox></mat-checkbox>
+                </td>
+              </ng-container> -->
+    
+              <!-- Type Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.deposit_date }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+                <td mat-footer-cell *matFooterCellDef>No Record Found</td>
+              </ng-container>
+    
+              <ng-container matColumnDef="mode">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Mode
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.payment_type }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+    
+              <ng-container matColumnDef="penalty">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Penalty
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.penalty }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+    
+              <ng-container matColumnDef="fee">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Fee
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fee_deposited }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef> 
+                  {{getTotalFeeDeposited()}} 
+                </td>
+              </ng-container>
+    
+              <!-- Action Column -->
+              <!-- <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-footer-cell *matFooterCellDef></td>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-icon-button
+                    color="accent"
+                    (click)="openDialog('edit', element)"
+                    matTooltip="Edit {{ element.class_name }}"
+                  >
+                    <mat-icon>edit_rounded</mat-icon>
+                  </button> -->
+                  <!-- <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="openDialog('delete', element)"
+                    matTooltip="Delete {{ element.class }}"
+                  >
+                    <mat-icon>delete_rounded</mat-icon>
+                  </button> -->
+                <!-- </td>
+              </ng-container> -->
+    
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+              <tr
+                mat-footer-row
+                *matFooterRowDef="displayedColumns"
+                [hidden]="dataSource && dataSource.data.length > 0"
+              ></tr>
+            </table>
+    
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <h6>
+            Subjects Fee Payments
+          </h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceSubFee" matSort class="full-width">
+              <!-- selection Column -->
+              <!-- <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox></mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-checkbox></mat-checkbox>
+                </td>
+              </ng-container> -->
+    
+              <!-- Type Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.modified_on | date }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+                <td mat-footer-cell *matFooterCellDef>No Record Found</td>
+              </ng-container>
+    
+              <ng-container matColumnDef="Subjects">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Subjects
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ getsubjectNames(element.subjectlist) }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+    
+              <!-- <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Penalty
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.penalty }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container> -->
+    
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Amount
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.paidAmount }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef> 
+                  {{getTotalPaidAmount()}} 
+                </td>
+              </ng-container>
+    
+              <!-- Action Column -->
+              <!-- <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-footer-cell *matFooterCellDef></td>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-icon-button
+                    color="accent"
+                    (click)="openDialog('edit', element)"
+                    matTooltip="Edit {{ element.class_name }}"
+                  >
+                    <mat-icon>edit_rounded</mat-icon>
+                  </button> -->
+                  <!-- <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="openDialog('delete', element)"
+                    matTooltip="Delete {{ element.class }}"
+                  >
+                    <mat-icon>delete_rounded</mat-icon>
+                  </button> -->
+                <!-- </td>
+              </ng-container> -->
+    
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns2; sticky: true"
+              ></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns2"></tr>
+              <tr
+                mat-footer-row
+                *matFooterRowDef="displayedColumns2"
+                [hidden]="dataSourceSubFee && dataSourceSubFee.data.length > 0"
+              ></tr>
+            </table>
+    
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+  <div mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="false">Close</button>
+    <button
+      mat-raised-button
+      ngxPrint
+      printSectionId="printLedger"
+      printTitle="{{ studentdetail.name }} ledger"
+      [useExistingCss]="true"
+      type="submit"
+      color="primary">
+      <mat-icon>print_rounded</mat-icon>Print
+    </button>
+  </div>

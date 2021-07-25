@@ -1,0 +1,8 @@
+.customCard {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+}
+
+.row {
+  margin-bottom: 30px;
+}

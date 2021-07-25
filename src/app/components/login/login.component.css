@@ -1,0 +1,26 @@
+.container-fluid {
+  /* background-color: #e9ecef; */
+  height: 100vh;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+}
+
+.display-4 {
+  margin-bottom: 0;
+}
+
+.lead {
+  font-size: 0.95rem;
+}
+
+.form-col {
+  background-color: #fff;
+  padding: 15px 20px 35px 20px;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}

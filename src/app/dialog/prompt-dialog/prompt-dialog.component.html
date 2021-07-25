@@ -1,0 +1,31 @@
+<div mat-dialog-title align="center">
+  <mat-icon *ngIf="data.success" color="primary">verified_rounded</mat-icon
+  ><mat-icon *ngIf="data.warning" color="accent">warning_rounded</mat-icon>
+  <mat-icon *ngIf="data.error" color="warn">cancel_rounded</mat-icon>
+</div>
+<div mat-dialog-content align="center">
+  <p>
+    {{ data.message }}
+  </p>
+</div>
+<div mat-dialog-action align="center">
+  <button
+    mat-dialog-close
+    mat-raised-button
+    *ngIf="data.success"
+    color="primary"
+  >
+    Okay
+  </button>
+  <button
+    mat-dialog-close
+    mat-raised-button
+    *ngIf="data.warning"
+    color="accent"
+  >
+    Okay
+  </button>
+  <button mat-dialog-close mat-raised-button *ngIf="data.error" color="warn">
+    Okay
+  </button>
+</div>

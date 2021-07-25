@@ -1,0 +1,5 @@
+.container-fluid {
+  background-color: #e9ecef;
+  height: calc(100vh - 64px);
+  text-align: center;
+}

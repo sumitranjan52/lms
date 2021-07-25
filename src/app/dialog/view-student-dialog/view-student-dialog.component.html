@@ -1,0 +1,261 @@
+<div mat-dialog-title align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    ngxPrint
+    printSectionId="printArea"
+    printTitle="{{ data.username }}"
+    [useExistingCss]="true"
+    *ngIf="data.feePaid[0]?.total_fee_deposit"
+  >
+    <mat-icon>print_rounded</mat-icon>Print</button
+  >&nbsp;
+  <button mat-button [mat-dialog-close]="false" color="accent">
+    <mat-icon>close_rounded</mat-icon> Close
+  </button>
+</div>
+
+<div id="printArea">
+  <div class="row header-view bg-lg">
+    <div class="col-9 name">
+      <h4>{{ data.username }}</h4>
+      <h1 class="display-4">
+        {{ data.studentName }}&nbsp;<mat-icon *ngIf="data.gender == 'M'"
+          >male_rounded</mat-icon
+        >
+        <mat-icon *ngIf="data.gender == 'F'">female_rounded</mat-icon>
+        <mat-icon *ngIf="data.gender == 'O'">transgender_rounded</mat-icon>
+      </h1>
+      <h2>Session: {{ data.sessionMonth }} - {{ data.sessionYear }}</h2>
+    </div>
+    <div class="col" align="end">
+      <img
+        src="data:image/jpeg;base64,{{ data.image }}"
+        alt="Student Image"
+        class="image"
+      />
+    </div>
+  </div>
+
+  <div class="row header-view">
+    <div class="col">
+      <div class="row mb-3 bg-lg">
+        <div class="col text-white">
+          <h3 class="pt-2">Basic Details</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Date of Birth</b></p>
+          <p>{{ data.dob }}</p>
+        </div>
+        <div class="col">
+          <p><b>Mobile</b></p>
+          <p>{{ data.mobile }}</p>
+        </div>
+        <div class="col">
+          <p><b>UID (Aadhar)</b></p>
+          <p>{{ data.uid }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Father's Name</b></p>
+          <p>{{ data.fatherName }}</p>
+        </div>
+        <div class="col">
+          <p><b>Mother's Name</b></p>
+          <p>{{ data.motherName }}</p>
+        </div>
+        <div class="col" *ngIf="data.occupation">
+          <p><b>Father or Mother Occupation</b></p>
+          <p>{{ data.occupation }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Address</b></p>
+          <p>
+            {{ data.address }}, {{ data.district.district }},
+            {{ data.state.state }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="data.phone || data.email">
+        <div class="col" *ngIf="data.phone">
+          <p><b>Phone</b></p>
+          <p>{{ data.phone }}</p>
+        </div>
+        <div class="col" *ngIf="data.email">
+          <p><b>Email</b></p>
+          <p>{{ data.email }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row header-view">
+    <div class="col">
+      <div class="row mb-3 bg-lg">
+        <div class="col text-white">
+          <h3 class="pt-2">Academic Details</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Application Date</b></p>
+          <p>{{ data.applDate }}</p>
+        </div>
+        <div class="col">
+          <p><b>Form Type</b></p>
+          <p>{{ data.formType.form_type }}</p>
+        </div>
+        <div class="col">
+          <p><b>Course Fee</b></p>
+          <p>{{ data.courseFee }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Branch</b></p>
+          <p>{{ data.branchName.branch }}, {{ data.branchName.address }}</p>
+        </div>
+        <div class="col">
+          <p><b>Medium</b></p>
+          <p>{{ data.courseMedium.medium }}</p>
+        </div>
+        <div class="col" *ngIf="data.aiCentre || data.enrollNo">
+          <ng-container *ngIf="data.aiCentre">
+            <p><b>AI Centre</b></p>
+            <p>{{ data.aiCentre }}</p>
+          </ng-container>
+          <ng-container *ngIf="data.enrollNo">
+            <p><b>Enrollment Number</b></p>
+            <p>{{ data.enrollNo }}</p>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Reference By</b></p>
+          <p>{{ data.refBy.reference }}</p>
+        </div>
+        <div class="col">
+          <p><b>Reference To</b></p>
+          <p>{{ data.refTo.reference }}</p>
+        </div>
+        <div class="col">
+          <p><b>Reference Number</b></p>
+          <p>{{ data.refNo }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row header-view">
+    <div class="col">
+      <div class="row mb-3 bg-lg">
+        <div class="col text-white">
+          <h3 class="pt-2">Subject Selected</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p><b>Class</b></p>
+          <p>{{ std.doGet(data.std).class_name }}</p>
+
+          <p><b>School</b></p>
+          <p>{{ data.school }}</p>
+        </div>
+        <div class="col">
+          <p><b>Main Subject</b></p>
+          <p *ngFor="let sub of data.mainSub">
+            <b>{{ sub.subject?.subjectName }}</b
+            >&nbsp;{{ displayAdd(sub) }}
+          </p>
+        </div>
+        <div class="col" *ngIf="data.toc">
+          <p><b>Transfer of Credit</b></p>
+          <p *ngFor="let td of data.tocData">
+            {{ td.subject.subjectName }} | Total Marks
+            {{ td.theory + td.practical }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row header-view" *ngIf="data.remark || data.prevQual">
+    <div class="col">
+      <div class="row mb-3 bg-lg">
+        <div class="col text-white">
+          <h3 class="pt-2">Other Details</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col" *ngIf="data.prevQual">
+          <p><b>Previous Qualification</b></p>
+          <p *ngFor="let prev of data.prevQualification">
+            {{ prev.qualification }} | Year {{ prev.year }}
+          </p>
+        </div>
+        <div class="col" *ngIf="data.remark">
+          <p><b>Remark</b></p>
+          <p>{{ data.remark }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row header-view" *ngIf="data.feePaid[0]">
+    <div class="col">
+      <div class="row mb-3 bg-lg">
+        <div class="col text-white">
+          <h3 class="pt-2">Fee Details</h3>
+        </div>
+        <div class="col text-white">
+          <h3 class="pt-2">₹{{ data.feePaid[0].total_fee_deposit }}</h3>
+        </div>
+      </div>
+
+      <div class="row" *ngFor="let fee of data.feePaid">
+        <div class="col">
+          <p><b>Payment Type</b></p>
+          <p>{{ fee.payment_type }}</p>
+        </div>
+        <div class="col">
+          <p><b>Payment Date</b></p>
+          <p>{{ fee.deposit_date }}</p>
+        </div>
+        <div class="col">
+          <p><b>Amount</b></p>
+          <p>₹{{ fee.fee_deposited }}</p>
+        </div>
+        <div class="col" *ngIf="!(fee.cheque_number || fee.transaction_number)">
+          <p><b>Month</b></p>
+          <p>{{ fee.month }}</p>
+        </div>
+        <div class="col" *ngIf="fee.cheque_number">
+          <p><b>Cheque Details</b></p>
+          <p>
+            {{ fee.cheque_number }} | {{ fee.cheque_name }} |
+            {{ fee.bank_name }}
+          </p>
+        </div>
+        <div class="col" *ngIf="fee.transaction_number">
+          <p><b>Transaction Number</b></p>
+          <p>{{ fee.transaction_number }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

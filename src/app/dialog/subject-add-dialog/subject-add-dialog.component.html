@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>Add Subject and Fee</h1>
+<form [formGroup]="subjectForm" (submit)="save(subjectForm)">
+  <div mat-dialog-content>
+  <p>
+     <mat-form-field class="full-width">
+      <mat-label>Class</mat-label>
+      <!-- <input matInput formControlName="std" type="text" id="std" name="std"/> -->
+      <mat-select formControlName="std" required (selectionChange)="grplistCall($event.value)">
+        <mat-option *ngFor="let el of standard" [value]="el.id" >
+          {{el.class_name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="std.dirty && !std.valid" >
+         {{ getErrorMessage("std", "Class") }}
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+     <mat-label>Group</mat-label>
+     <mat-select formControlName="group" required>
+       <mat-option *ngFor="let el of grouplist" [value]="el.id" >
+         {{el.group_name}}
+       </mat-option>
+     </mat-select>
+     <mat-error *ngIf="group.dirty && !group.valid" >
+        {{ getErrorMessage("group", "Group") }}
+     </mat-error>
+   </mat-form-field>
+ </p>
+ <p>
+  <mat-form-field class="full-width">
+    <mat-label>Subject Name</mat-label>
+    <input matInput formControlName="subjectName" type="text" id="subjectName" name="subjectName"/>
+    <mat-error *ngIf="subjectName.dirty && !subjectName.valid">
+       {{ getErrorMessage("subjectName", "Subject Name") }}
+    </mat-error>
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field class="full-width">
+    <mat-label> Theory Fee</mat-label>
+    <input matInput formControlName="theoryFee" type="text" id="theoryFee" name="theoryFee"/>
+    <mat-hint *ngIf="!theoryFee.dirty || theoryFee.valid">
+      Must be 1-8 numeric characters and can't start with 0.
+    </mat-hint>
+    <mat-error *ngIf="theoryFee.dirty && !theoryFee.valid">
+      {{ getErrorMessage("theoryFee", "Theory Fee") }}
+    </mat-error>
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field class="full-width">
+    <mat-label>Practical Fee</mat-label>
+    <input matInput formControlName="practicalFee" type="text" id="practicalFee" name="practicalFee"/>
+    <mat-hint *ngIf="!practicalFee.dirty || practicalFee.valid">
+      Must be 1-8 numeric characters and can't start with 0.
+    </mat-hint>
+    <mat-error *ngIf="practicalFee.dirty && !practicalFee.valid">
+      {{ getErrorMessage("practicalFee", "Practical Fee") }}
+    </mat-error>
+  </mat-form-field>
+</p>
+
+</div>
+  <!-- <button type="submit" class="btn btn-success">Submit</button> -->
+  <div mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+    >
+      Save
+    </button>
+  </div>
+</form>

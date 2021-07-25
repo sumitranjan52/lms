@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-5 form-col">
+      <h3>Change Password</h3>
+      <mat-error *ngIf="error">{{ error }}</mat-error>
+      <form
+        [formGroup]="changePasswordForm"
+        (submit)="changePassword(changePasswordForm.value)"
+      >
+        <mat-form-field class="full-width">
+          <mat-label>Old Password</mat-label>
+          <input
+            type="password"
+            matInput
+            formControlName="oldPassword"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>New Password</mat-label>
+          <input type="password" matInput formControlName="password" required />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Confirm New Password</mat-label>
+          <input
+            type="password"
+            matInput
+            formControlName="confPassword"
+            required
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" align="end" type="submit">
+          Update Password
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

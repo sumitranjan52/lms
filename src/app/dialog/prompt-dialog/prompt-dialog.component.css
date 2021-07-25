@@ -1,0 +1,24 @@
+::ng-deep .success .mat-dialog-container {
+  border-top: 3px solid #3f51b5;
+  background: linear-gradient(328deg, #a1a9d6, #fff);
+}
+
+::ng-deep .warning .mat-dialog-container {
+  border-top: 3px solid #ff4081;
+  background: linear-gradient(328deg, #d499ad, #fff);
+}
+
+::ng-deep .error .mat-dialog-container {
+  border-top: 3px solid #f44336;
+  background: linear-gradient(328deg, #daaca9, #fff);
+}
+
+.mat-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.material-icons {
+  font-size: 100px !important;
+  overflow-x: hidden;
+}

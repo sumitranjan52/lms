@@ -1,0 +1,63 @@
+<h1 mat-dialog-title>Enquire Form</h1>
+<form [formGroup]="enquiryForm" (submit)="save(enquiryForm)">
+  <div mat-dialog-content>
+  <p>
+    <mat-form-field class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" type="text" id="name" name="name"/>
+      <mat-hint *ngIf="!name.dirty || name.valid">
+        Must be 3-15 characters.</mat-hint>
+      <mat-error *ngIf="name.touched && !name.valid" >
+         {{ getErrorMessage("name", "Name") }}
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <mat-label>Contact</mat-label>
+      <input matInput formControlName="contact" type="text" id="contact" name="contact"/>
+      <mat-hint *ngIf="!contact.dirty || contact.valid">
+        Must be 10 numeric characters.</mat-hint>
+      <mat-error *ngIf="contact.touched && !contact.valid" >
+         {{ getErrorMessage("contact", "Contact") }}
+      </mat-error>
+    </mat-form-field>
+ </p>
+ <p>
+  <mat-form-field class="full-width">
+    <mat-label>Course type</mat-label>
+    <mat-select formControlName="courseType" required >
+      <mat-option *ngFor="let el of courseTypes" [value]="el" >
+        {{el}}
+      </mat-option>
+    </mat-select> 
+    <mat-hint *ngIf="!courseType.dirty || courseType.valid">
+      Must choose from drop down.</mat-hint>
+    <mat-error *ngIf="courseType.touched && !courseType.valid" >
+       {{ getErrorMessage("courseType", "Course Type") }}
+    </mat-error>
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field class="full-width">
+    <mat-label>Remark</mat-label>
+    <textarea matInput formControlName="remark" type="text" id="remark" name="remark"></textarea>
+    <mat-hint *ngIf="!remark.dirty || remark.valid">
+      Must be 3-255 alphanumeric characters.</mat-hint>
+    <mat-error *ngIf="remark.touched && !remark.valid" >
+       {{ getErrorMessage("remark", "Remark") }}
+    </mat-error>
+  </mat-form-field>
+</p>
+
+</div>
+  <div mat-dialog-actions align="center">
+    <button type="reset" mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary">
+      Save
+    </button>
+  </div>
+</form>

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="align-c pt-5">
+    <h1 class="display-4">{{ appConfig.instituteName }}</h1>
+    <p class="lead">{{ appConfig.tagLine }}</p>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-5 form-col">
+      <h3>Login</h3>
+      <mat-error *ngIf="errorMsg">{{ errorMsg }}</mat-error>
+      <form [formGroup]="loginForm" (submit)="login(loginForm)">
+        <mat-form-field class="full-width">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput formControlName="username" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          [disabled]="disabled"
+          color="primary"
+          align="end"
+          type="submit"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

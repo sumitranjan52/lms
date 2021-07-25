@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Are you sure?</h1>
+<div mat-dialog-content>
+  <p *ngIf="!data.leave">
+    Want to delete <b>{{ data }}</b
+    >.
+  </p>
+  <p *ngIf="data.leave">
+    <b>{{ data.msg }}</b> is leaving.
+  </p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">
+    <span *ngIf="!data.leave">Delete</span>
+    <span *ngIf="data.leave">Leave</span>
+  </button>
+</div>

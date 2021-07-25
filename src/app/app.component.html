@@ -1,0 +1,27 @@
+<mat-toolbar color="primary" class="flex-space" *ngIf="gbl.token">
+  <div>
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon *ngIf="!sidebar">menu_rounded</mat-icon>
+      <mat-icon *ngIf="sidebar">menu_open_rounded</mat-icon>
+    </button>
+    <button mat-button routerLink="/">C-Cube</button>
+  </div>
+  <div>
+    <button mat-button [matMenuTriggerFor]="accountMenu">
+      <mat-icon>person_rounded</mat-icon>&nbsp;{{ gbl.user?.name }}
+    </button>
+    <mat-menu #accountMenu="matMenu" xPosition="before">
+      <button disabled mat-menu-item>{{ getRole() }}</button>
+      <button mat-menu-item routerLink="change-password">
+        <mat-icon>password_rounded</mat-icon><span>Change Password</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout_rounded</mat-icon><span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<app-loader></app-loader>
+<div class="lms-content">
+  <router-outlet></router-outlet>
+</div>

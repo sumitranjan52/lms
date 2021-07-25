@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Branch</h1>
+<form [formGroup]="branchForm" (submit)="save(branchForm)">
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <mat-label>Branch Name</mat-label>
+      <input matInput formControlName="branch" />
+      <mat-hint *ngIf="!branch.dirty || branch.valid"
+        >Must be 3-100 alphabet characters.</mat-hint
+      >
+      <mat-error *ngIf="branch.dirty && !branch.valid">
+        {{ getErrorMessage("branch", "Branch Name") }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Branch Address</mat-label>
+      <input matInput formControlName="address" />
+      <mat-hint *ngIf="!address.dirty || address.valid"
+        >Must be 3-500 alpha numberic characters with some special , - /
+        characters.</mat-hint
+      >
+      <mat-error *ngIf="address.dirty && !address.valid">
+        {{ getErrorMessage("address", "Branch Address") }}</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!branchForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>

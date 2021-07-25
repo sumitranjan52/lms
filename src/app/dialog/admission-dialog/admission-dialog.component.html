@@ -1,0 +1,93 @@
+<h1 mat-dialog-title>New Admission</h1>
+<form [formGroup]="newAdmissionForm" (submit)="save(newAdmissionForm)">
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Session Month</mat-label>
+          <mat-select matInput formControlName="sessionMonth" required>
+            <mat-option *ngFor="let month of months" [value]="month">{{
+              month
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="sessionMonth.touched && !sessionMonth.valid">
+            {{ getErrorMessage("sessionMonth", "Session Month") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Session Year</mat-label>
+          <mat-select matInput formControlName="sessionYear" required>
+            <mat-option *ngFor="let year of years" [value]="year">{{
+              year
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="sessionYear.touched && !sessionYear.valid">
+            {{ getErrorMessage("sessionYear", "Session Year") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field class="full-width">
+      <mat-label>Class</mat-label>
+      <mat-select matInput formControlName="className" required>
+        <mat-option *ngFor="let std of stds" [value]="std">{{
+          std.class_name
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="className.touched && !className.valid">
+        {{ getErrorMessage("className", "Class") }}</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Form Type</mat-label>
+      <mat-select matInput formControlName="formType" required>
+        <mat-option *ngFor="let formType of formTypes" [value]="formType">{{
+          formType.form_type
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formType.touched && !formType.valid">
+        {{ getErrorMessage("formType", "Form Type") }}</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Date of Birth</mat-label>
+      <input
+        required
+        matInput
+        formControlName="dob"
+        [matDatepicker]="dob"
+        [max]="maxDate"
+        readonly
+        (dateChange)="calcAge($event.target.value)"
+      />
+      <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+      <mat-datepicker #dob></mat-datepicker>
+      <mat-error *ngIf="dob.touched && !dob.valid">
+        {{ getErrorMessage("dob", "Date of Birth") }}</mat-error
+      >
+    </mat-form-field>
+    <div class="text-muted fsmall" *ngIf="age">{{ age }} Year(s)</div>
+    <div class="text-muted fsmall">
+      Note
+      <ol>
+        <li>For Class X, Age should be at least 14</li>
+        <li>For Class XII, Age should be at least 15</li>
+      </ol>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!newAdmissionForm.valid"
+    >
+      Proceed
+    </button>
+  </div>
+</form>

@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>Add New Group's name</h1>
+<form [formGroup]="classForm" (submit)="save(classForm)">
+  <div mat-dialog-content>
+  <p>
+     <mat-form-field class="full-width">
+      <mat-label>Class</mat-label>
+      <!-- <input matInput formControlName="std" type="text" id="std" name="std"/> -->
+      <mat-select formControlName="std" required >
+        <mat-option *ngFor="let el of data" [value]="el.id" >
+          {{el.class_name}}
+        </mat-option>
+      </mat-select> 
+      <mat-hint *ngIf="!std.dirty || std.valid">
+      Must be 3-255 alpha numeric characters.</mat-hint
+            >
+      <mat-error *ngIf="std.dirty && !std.valid">
+         {{ getErrorMessage("std", "Class") }}
+      </mat-error>
+    </mat-form-field>
+  </p>
+
+  <div formArrayName="groupName">
+    <p>
+      <span >Add Multiple Group:</span>
+      <span width="150px">
+        <button type="button" 
+        (click)="addElement()" 
+        mat-icon-button
+        color="primary" >
+          <mat-icon>add_rounded</mat-icon>
+          </button>
+      </span>
+    </p>
+    <ng-container *ngFor="let element of groupsNm().controls; let i=index" [formGroupName]="i">
+      <span>
+          <mat-form-field class="full-width">
+            <mat-label>Add New NIOS group here:</mat-label>
+            <input matInput formControlName="newGrpName" type="text" id="newGrpName" name="newGrpName"/>
+            <mat-hint *ngIf="!element.dirty || element.valid">
+              Must be 3-255 alpha numeric characters.</mat-hint>
+            <mat-error *ngIf="element.dirty && !element.valid" >
+               {{ getErrorMessage("newGrpName", "group name") }}
+            </mat-error>
+          </mat-form-field>
+      </span>
+      <span>
+          <mat-form-field class="full-width">
+            <mat-label>Add New Subject limit here:</mat-label>
+            <input matInput formControlName="subLimit" type="text" id="subLimit" name="subLimit"/>
+            <mat-hint *ngIf="!element.dirty || element.valid">
+              Must be 3-255 numeric characters.</mat-hint>
+            <mat-error *ngIf="element.dirty && !element.valid" >
+               {{ getErrorMessage("subLimit", "Subject limit") }}
+            </mat-error>
+          </mat-form-field>
+      </span>
+      <span>
+          <!-- <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button> -->
+          <button mat-button (click)="removeElement(i)" mat-raised-button color="warn"> Remove </button>
+      </span>
+    </ng-container>
+  </div>
+
+</div>
+  <div mat-dialog-actions align="center">
+    <button type="reset" mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary">
+      Save
+    </button>
+  </div>
+</form>

@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Result for {{ data?.studentName }}</h1>
+<form [formGroup]="resultForm" (submit)="save(resultForm.value)">
+  <div mat-dialog-content>
+    <div
+      class="row"
+      formArrayName="results"
+      *ngFor="let result of results.controls; let i = index"
+    >
+      <div class="col" [formGroup]="result">
+        <div class="row">
+          <div class="col">
+            <p>
+              <b>{{ result.value.subject?.subjectName }}</b>
+            </p>
+            <p>Total Fee: {{ result.value?.total_fee }}</p>
+            <p *ngIf="result.value?.attempt_date">
+              Last Attempt: {{ result.value?.attempt_date }}
+            </p>
+            <p *ngIf="result.value?.fee_deposited">
+              Fee Deposited: {{ result.value?.fee_deposited }}
+            </p>
+          </div>
+          <div class="col">
+            <mat-slide-toggle formControlName="ispass">
+              <span *ngIf="result.value.ispass">Pass</span>
+              <span *ngIf="!result.value.ispass">Fail</span> </mat-slide-toggle
+            >&nbsp;
+            <mat-form-field>
+              <mat-label>Score</mat-label>
+              <input matInput formControlName="score" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button type="submit" color="primary">Save</button>
+  </div>
+</form>

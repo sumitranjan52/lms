@@ -1,0 +1,142 @@
+<h1 mat-dialog-title>Subject Fee Payment</h1>
+<form [formGroup]="subjectfeeDepositForm" (submit)="save(subjectfeeDepositForm)">
+  <div mat-dialog-content>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          Student Name :
+          {{ this.studentdetail.name }}
+        </div>
+        <div class="col">
+          Center :
+          {{ this.studentdetail.coachingCenter }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Father's Name:
+          {{ this.studentdetail.fatherName }}
+        </div>
+        <div class="col">
+          Branch:
+          {{ this.studentdetail.branchName }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Class:
+          {{ this.studentdetail.class }}
+        </div>
+        <div class="col">
+          Contact:
+          {{ this.studentdetail.contactNumber }}
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col">
+          <h6>
+            Course Fee:
+            {{ this.studentdetail.fee }}
+          </h6>
+        </div>
+      </div> -->
+    </div>
+    <div class="container-fluid">
+      <div class="row" formArrayName="subjectList">
+        <ng-container *ngFor="let element of SubjectList.controls; let i=index" [formGroupName]="i">
+          <span class="col">
+            <mat-checkbox formControlName="checked" [checked]="element.controls.checked" (change)="addAmount($event,element)" 
+            >{{element.value.name}}</mat-checkbox>
+          </span>
+          <!-- <span>
+              <mat-form-field class="full-width">
+                <mat-label>Add New Subject limit here:</mat-label>
+                <input matInput formControlName="subLimit" type="text" id="subLimit" name="subLimit"/>
+                <mat-hint *ngIf="!element.dirty || element.valid">
+                  Must be 3-255 numeric characters.</mat-hint>
+                <mat-error *ngIf="element.dirty && !element.valid" >
+                   {{ getErrorMessage("subLimit", "Subject limit") }}
+                </mat-error>
+              </mat-form-field>
+          </span> -->
+          
+        </ng-container>
+        <div *ngIf="disabled">Please select 4 subjects</div>
+      </div>
+      <!-- <div class="row">
+        <span class="col"
+          >Amount to be paid:
+          {{ amountToBePaid }}
+        </span>
+        <span class="col">
+          <mat-checkbox (change)="addPenalty($event)" #penaltyCheckBox
+            >Penalty</mat-checkbox>
+
+          <mat-form-field *ngIf="optionextra" class="col">
+            <mat-label>Penalty Amount</mat-label>
+            <input
+              matInput
+              (keyup)="updateAmount($event)"
+              formControlName="penaltyAmount"
+              type="text"
+              id="penaltyAmount"
+              name="penaltyAmount"
+            />
+            <mat-hint
+              >Hit enter to add penalty amount to amount to be paid</mat-hint
+            >
+            <mat-error>
+              <!-- *ngIf="" std.dirty && !std.valid {{ getErrorMessage("medium", "Medium") }} ->
+            </mat-error>
+          </mat-form-field>
+        </span>
+      </div> -->
+      <div class="row">
+        <Span class="col">
+          <mat-form-field>
+            <mat-label>Total Amount to be Paid</mat-label>
+            <input
+              matInput
+              formControlName="totalFee"
+              type="text"
+              id="totalFee"
+              name="totalFee"
+              readonly
+            />
+            <mat-error>
+              <!-- *ngIf="" std.dirty && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+            </mat-error>
+          </mat-form-field>
+        </Span>
+        <Span class="col">
+          <mat-form-field>
+            <mat-label>Paid</mat-label>
+            <input
+              matInput
+              formControlName="paidFee"
+              type="text"
+              id="paidFee"
+              name="paidFee"
+            />
+            <mat-error>
+              <!-- *ngIf="" std.dirty && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+            </mat-error>
+          </mat-form-field>
+        </Span>
+      </div>
+      </div>
+  
+  </div>
+  <!-- <button type="submit" class="btn btn-success">Submit</button> -->
+  <div mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!subjectfeeDepositForm.valid && disabled"
+    >
+      Save
+    </button>
+  </div>
+</form>

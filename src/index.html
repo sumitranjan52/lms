@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Learning Management System</title>
+    <base href="/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .overlay {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.404);
+        z-index: 10000;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 10px solid rgb(63, 81, 181);
+        border-radius: 50%;
+        animation: zoom 1s linear infinite alternate-reverse;
+      }
+
+      @keyframes zoom {
+        0% {
+          width: 50px;
+          height: 50px;
+          border-color: rgba(63, 81, 181, 1);
+        }
+
+        25% {
+          width: 70px;
+          height: 70px;
+          border-color: rgba(63, 81, 181, 0.8);
+        }
+
+        50% {
+          width: 90px;
+          height: 90px;
+          border-color: rgba(63, 81, 181, 0.6);
+        }
+
+        75% {
+          width: 110px;
+          height: 110px;
+          border-color: rgba(63, 81, 181, 0.5);
+        }
+
+        100% {
+          width: 130px;
+          height: 130px;
+          border-color: rgba(63, 81, 181, 0.4);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <app-root>
+      <div class="overlay">
+        <div class="loader"></div>
+      </div>
+    </app-root>
+  </body>
+</html>

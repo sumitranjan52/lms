@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>State</h1>
+<form [formGroup]="stateForm" (submit)="save(stateForm)">
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col lh-40">Want to add more</div>
+      <div class="col align-r">
+        <button
+          mat-icon-button
+          color="primary"
+          type="button"
+          (click)="addRow()"
+          [disabled]="data"
+        >
+          <mat-icon>add_rounded</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div formArrayName="state">
+      <div class="row" *ngFor="let st of state.controls; let i = index">
+        <div class="col-10">
+          <mat-form-field class="full-width">
+            <mat-label>State</mat-label>
+            <input matInput [formControlName]="i" />
+            <mat-hint *ngIf="!st.dirty || st.valid"
+              >Must be 3-255 alpha numberic characters.</mat-hint
+            >
+            <mat-error *ngIf="st.dirty && !st.valid">
+              {{ getErrorMessage(st, "State Name at " + (i + 1)) }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="col align-r">
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            (click)="removeRow(i)"
+            [disabled]="state.controls.length == 1"
+          >
+            <mat-icon>delete_rounded</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!stateForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Gender</h1>
+<form [formGroup]="genderForm" (submit)="save(genderForm)">
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <mat-label>Gender</mat-label>
+      <input matInput formControlName="gender" />
+      <mat-hint *ngIf="!gender.dirty || gender.valid"
+        >Must be 3-255 alphabet characters.</mat-hint
+      >
+      <mat-error *ngIf="gender.dirty && !gender.valid">
+        {{ getErrorMessage("gender", "Gender") }}</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!genderForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>

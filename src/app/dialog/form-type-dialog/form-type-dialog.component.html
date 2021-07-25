@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Form Type</h1>
+<form [formGroup]="typesForm" (submit)="save(typesForm)">
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="formType" />
+      <mat-hint *ngIf="!formType.dirty || formType.valid"
+        >Must be 3-255 alpha numberic characters</mat-hint
+      >
+      <mat-error *ngIf="formType.dirty && !formType.valid">
+        {{ getErrorMessage("formType", "Type") }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Fee</mat-label>
+      <input matInput formControlName="formFee" />
+      <mat-hint *ngIf="!formFee.dirty || formFee.valid"
+        >Must be 1-8 numberic characters and cann't start with 0.</mat-hint
+      >
+      <mat-error *ngIf="formFee.dirty && !formFee.valid">
+        {{ getErrorMessage("formFee", "Fee") }}</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!typesForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>

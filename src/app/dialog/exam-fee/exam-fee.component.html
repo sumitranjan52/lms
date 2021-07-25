@@ -1,0 +1,294 @@
+<h1 mat-dialog-title>Student Fee Payment</h1>
+<form [formGroup]="feeDepositForm" (submit)="save(feeDepositForm)">
+  <div mat-dialog-content>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          Student Name :
+          {{ this.studentdetail.name }}
+        </div>
+        <div class="col">
+          Center :
+          {{ this.studentdetail.coachingCenter }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Father's Name:
+          {{ this.studentdetail.fatherName }}
+        </div>
+        <div class="col">
+          Branch:
+          {{ this.studentdetail.branchName }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Class:
+          {{ this.studentdetail.class }}
+        </div>
+        <div class="col">
+          Contact:
+          {{ this.studentdetail.contactNumber }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h6>
+            Course Fee:
+            {{ this.studentdetail.fee }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <mat-form-field class="full-width">
+        <mat-label>Payment Mode Selection</mat-label>
+        <mat-select
+          formControlName="paymentMode"
+          required
+          (selectionChange)="payModeDetails($event)"
+        >
+          <mat-option *ngFor="let el of paymentModes" [value]="el">
+            {{ el }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="
+            feeDepositForm.get('paymentMode').touched &&
+            !feeDepositForm.get('paymentMode').valid
+          "
+        >
+          {{ getErrorMessage("paymentMode", "Payment Mode Selection") }}
+        </mat-error>
+      </mat-form-field>
+
+      <div formArrayName="paymentDetails">
+        <ng-container
+          *ngFor="let element of paymentDet.controls; let i = index"
+          [formGroupName]="i"
+          [ngSwitch]="paymentModetype"
+        >
+          <div *ngSwitchCase="'Cash'">
+            <mat-form-field>
+              <input
+                matInput
+                readonly
+                [matDatepicker]="cashpicker"
+                placeholder="Payment Date"
+                (dateChange)="date($event)"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="cashpicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #cashpicker></mat-datepicker>
+              <mat-error
+                *ngIf="!element.valid"
+              >
+                {{ getErrorMessage(element.get('date'), "Date") }}
+                error
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div *ngSwitchCase="'Cheque'">
+            <div class="row">
+              <span class="col"
+                ><mat-form-field>
+                  <mat-label>Payee Name</mat-label>
+                  <input
+                    matInput
+                    formControlName="payeeName"
+                    type="text"
+                    id="payeeName"
+                    name="payeeName"
+                  />
+                  <mat-error
+                    *ngIf="
+                      element.get('payeeName').touched &&
+                      !element.get('payeeName').valid
+                    "
+                  >
+                    <!-- {{ getErrorMessage("std", "Class") }} -->
+                    error
+                  </mat-error>
+                </mat-form-field>
+              </span>
+              <span class="col">
+                <mat-form-field>
+                  <mat-label>Bank Name</mat-label>
+                  <input
+                    matInput
+                    formControlName="bankName"
+                    type="text"
+                    id="bankName"
+                    name="bankName"
+                  />
+                  <mat-error>
+                    <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+                  </mat-error>
+                </mat-form-field>
+              </span>
+            </div>
+            <div class="row">
+              <span class="col">
+                <mat-form-field>
+                  <mat-label>Cheque Number</mat-label>
+                  <input
+                    matInput
+                    formControlName="chequeNumber"
+                    type="text"
+                    id="chequeNumber"
+                    name="chequeNumber"
+                  />
+                  <mat-error>
+                    <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+                  </mat-error>
+                </mat-form-field>
+              </span>
+              <span class="col">
+                <mat-form-field>
+                  <input
+                    matInput
+                    readonly
+                    [matDatepicker]="chequepicker"
+                    placeholder="Cheque Date"
+                    (dateChange)="dateCheque($event)"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="chequepicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #chequepicker></mat-datepicker>
+                  <mat-error>
+                    <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+                  </mat-error>
+                </mat-form-field>
+              </span>
+            </div>
+          </div>
+          <div *ngSwitchCase="'UPI'" class="row">
+            <span class="col">
+              <mat-form-field>
+                <input
+                  matInput
+                  readonly
+                  [matDatepicker]="upipicker"
+                  placeholder="UPI Payment Date"
+                  (dateChange)="dateUPI($event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="upipicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #upipicker></mat-datepicker>
+                <mat-error>
+                  <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+                </mat-error>
+              </mat-form-field>
+            </span>
+            <span class="col">
+              <mat-form-field>
+                <mat-label>Transaction Id</mat-label>
+                <input
+                  matInput
+                  formControlName="transactionId"
+                  type="text"
+                  id="transactionId"
+                  name="transactionId"
+                />
+                <mat-error>
+                  <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+                </mat-error>
+              </mat-form-field>
+            </span>
+          </div>
+        </ng-container>
+      </div>
+      <div class="row">
+        <span class="col"
+          >Amount to be paid:
+          {{ amountToBePaid }}
+        </span>
+        <span class="col">
+          <mat-checkbox (change)="addPenalty($event)" #penaltyCheckBox
+            >Penalty</mat-checkbox
+          >
+          <mat-form-field *ngIf="optionextra" class="col">
+            <mat-label>Penalty Amount</mat-label>
+            <input
+              matInput
+              (keyup)="updateAmount($event)"
+              formControlName="penaltyAmount"
+              type="text"
+              id="penaltyAmount"
+              name="penaltyAmount"
+            />
+            <mat-hint
+              >Hit enter to add penalty amount to amount to be paid</mat-hint
+            >
+            <mat-error>
+              <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+            </mat-error>
+          </mat-form-field>
+        </span>
+      </div>
+      <div class="row">
+        <Span class="col">
+          <mat-form-field>
+            <mat-label>Amount Paid by Student</mat-label>
+            <input
+              matInput
+              formControlName="amount"
+              type="text"
+              id="amount"
+              name="amount"
+            />
+            <mat-error>
+              <!-- *ngIf="" std.touched && !std.valid {{ getErrorMessage("medium", "Medium") }} -->
+            </mat-error>
+          </mat-form-field>
+        </Span>
+        <span class="col">
+          <mat-form-field>
+            <mat-label>Month</mat-label>
+            <mat-select formControlName="month" required>
+              <mat-option *ngFor="let el of months" [value]="el">
+                {{ el }}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="std.touched && !std.valid" >
+             {{ getErrorMessage("std", "Class") }}
+          </mat-error> -->
+          </mat-form-field>
+        </span>
+      </div>
+      <mat-form-field class="full-width">
+        <mat-label>Remark</mat-label>
+        <input
+          matInput
+          formControlName="remark"
+          type="text"
+          id="remark"
+          name="remark"
+        />
+        <!-- <mat-error *ngIf="std.touched && !std.valid" >
+           {{ getErrorMessage("std", "Class") }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+ 
+  </div>
+  <!-- <button type="submit" class="btn btn-success">Submit</button> -->
+  <div mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!feeDepositForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>

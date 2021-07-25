@@ -1,0 +1,13 @@
+.container-fluid {
+  height: calc(100vh - 64px);
+  text-align: center;
+  padding: 0 20px;
+  padding-top: 2.5rem;
+}
+
+.form-col {
+  background-color: #fff;
+  padding: 15px 20px 35px 20px;
+  text-align: center;
+  border-radius: 4px;
+}

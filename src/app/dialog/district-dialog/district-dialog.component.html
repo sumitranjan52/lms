@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>District</h1>
+<form [formGroup]="districtForm" (submit)="save(districtForm)">
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <mat-label>State</mat-label>
+      <mat-select matInput formControlName="state">
+        <mat-option *ngFor="let st of states" [value]="st.id">{{
+          st.state
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="state.dirty && !state.valid">
+        {{ getErrorMessage("state", "State") }}</mat-error
+      >
+    </mat-form-field>
+    <div class="row">
+      <div class="col lh-40">Add Districts</div>
+      <div class="col align-r">
+        <button
+          mat-icon-button
+          color="primary"
+          type="button"
+          (click)="addRow()"
+        >
+          <mat-icon>add_rounded</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div formArrayName="districts">
+      <div class="row" *ngFor="let dist of districts.controls; let i = index">
+        <div class="col-10">
+          <mat-form-field class="full-width">
+            <mat-label>District Name</mat-label>
+            <input matInput [formControlName]="i" />
+            <mat-hint *ngIf="!dist.dirty || dist.valid"
+              >Must be 3-255 alpha numberic characters.</mat-hint
+            >
+            <mat-error *ngIf="dist.dirty && !dist.valid">
+              {{
+                getErrorMessage(dist, "District Name at " + (i + 1))
+              }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="col align-r">
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            (click)="removeRow(i)"
+          >
+            <mat-icon>delete_rounded</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!districtForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>

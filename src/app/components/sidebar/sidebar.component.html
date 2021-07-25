@@ -1,0 +1,10 @@
+<mat-nav-list>
+  <mat-list-item
+    routerLink="{{ route.url }}"
+    *ngFor="let route of routes"
+    routerLinkActive="route-active"
+  >
+    <mat-icon *ngIf="route.icon" matListIcon>{{ route.icon }}</mat-icon>
+    <h3 matLine>{{ route.url_name }}</h3>
+  </mat-list-item>
+</mat-nav-list>

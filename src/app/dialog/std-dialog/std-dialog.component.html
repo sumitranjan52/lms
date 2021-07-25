@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Class</h1>
+<form [formGroup]="stdForm" (submit)="save(stdForm)">
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <mat-label>Class</mat-label>
+      <input matInput formControlName="className" />
+      <mat-hint *ngIf="!className.dirty || className.valid"
+        >Must be 3-255 alpha numberic characters and can have
+        paranthesis.</mat-hint
+      >
+      <mat-error *ngIf="className.dirty && !className.valid">
+        {{ getErrorMessage("className", "Class") }}</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!stdForm.valid"
+    >
+      Save
+    </button>
+  </div>
+</form>
